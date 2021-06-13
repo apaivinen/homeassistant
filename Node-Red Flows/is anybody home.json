@@ -1,0 +1,383 @@
+[
+    {
+        "id": "bffacb5d.ca7278",
+        "type": "tab",
+        "label": "Is anybody home?",
+        "disabled": false,
+        "info": "Unifi presence check"
+    },
+    {
+        "id": "c7d0549d.407478",
+        "type": "inject",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "30",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "98360efc.ffc5a"
+            ]
+        ]
+    },
+    {
+        "id": "98360efc.ffc5a",
+        "type": "Unifi",
+        "z": "bffacb5d.ca7278",
+        "name": "Unifi",
+        "ip": "192.168.1.7",
+        "port": 8443,
+        "site": "default",
+        "command": "20",
+        "unifios": false,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "4be69a16.19c9a4"
+            ]
+        ]
+    },
+    {
+        "id": "4be69a16.19c9a4",
+        "type": "function",
+        "z": "bffacb5d.ca7278",
+        "name": "Phone1 Checks",
+        "func": "var devices = msg.payload[0];\n\nfor(var i = 0; i < devices.length; i++) {\n   if(devices[i].mac === 'PHONE MAC ADDRESS HERE' && devices[i].is_wired === false) { //PHONE1 MAC\n     msg.place = i ;\n     msg.message = 'home';\n     // msg.deviceInfo = devices[i] ;\n     msg.payload = 1 ;\n     msg.nvalue = 1 ;\n     global.set('Phone1Status',1); // Setting 1 = Home\n     node.status({fill:\"green\",shape:\"dot\",text:\"Home\"});\n     return msg ;\n   }\n    \n}\n\n    msg.payload = 2 ;\n    msg.message = \"not_home\" ;\n    msg.nvalue = 2 ;\n    global.set('Phone1Status',0); // Setting 0 != Home\n    node.status({fill:\"yellow\",shape:\"dot\",text:\"Away\"});\n// msg.payload = i ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "e1909385.a71e1"
+            ]
+        ]
+    },
+    {
+        "id": "68b24f77.5cb27",
+        "type": "comment",
+        "z": "bffacb5d.ca7278",
+        "name": "Presence Check",
+        "info": "Works only if Mobile Phones are connected to WiFi",
+        "x": 300,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e1909385.a71e1",
+        "type": "rbe",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "func": "rbe",
+        "gap": "1",
+        "start": "",
+        "inout": "in",
+        "property": "payload",
+        "x": 490,
+        "y": 240,
+        "wires": [
+            [
+                "17631c71.ade384"
+            ]
+        ]
+    },
+    {
+        "id": "9108479e.358a98",
+        "type": "comment",
+        "z": "bffacb5d.ca7278",
+        "name": "report-by-exception",
+        "info": "A Node-RED node that provides report-by-exception (RBE) and deadband capability.\n\nThe node blocks unless the incoming value changes - RBE mode, or changes by more than a certain amount (absolute value or percentage) - bandgap modes.",
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "519ad2a9.a521dc",
+        "type": "api-call-service",
+        "z": "bffacb5d.ca7278",
+        "name": "set presence Home",
+        "server": "3882ec35.c64df4",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "device_tracker",
+        "service": "see",
+        "entityId": "",
+        "data": "{\"dev_id\":\"anssi\",\"location_name\":\"home\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 970,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "17631c71.ade384",
+        "type": "switch",
+        "z": "bffacb5d.ca7278",
+        "name": "Switch Check payload",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 740,
+        "y": 240,
+        "wires": [
+            [
+                "519ad2a9.a521dc"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5767d7a1.4c87a8",
+        "type": "api-call-service",
+        "z": "bffacb5d.ca7278",
+        "name": "set presence Away",
+        "server": "3882ec35.c64df4",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "device_tracker",
+        "service": "see",
+        "entityId": "",
+        "data": "{\"dev_id\":\"Anssi\",\"location_name\":\"not_home\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 970,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1aeba7a3.52f2f8",
+        "type": "ha-tag",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "server": "",
+        "version": 0,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "tags": [
+            ""
+        ],
+        "devices": [],
+        "x": 130,
+        "y": 680,
+        "wires": [
+            [
+                "2d034dd7.a908a2"
+            ]
+        ]
+    },
+    {
+        "id": "2d034dd7.a908a2",
+        "type": "delay",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 330,
+        "y": 680,
+        "wires": [
+            [
+                "2cec56ef.a1239a"
+            ]
+        ]
+    },
+    {
+        "id": "2cec56ef.a1239a",
+        "type": "api-current-state",
+        "z": "bffacb5d.ca7278",
+        "name": "Get Anssi State",
+        "server": "6d82b1f6.ec44",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "home",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "person.anssi",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 570,
+        "y": 680,
+        "wires": [
+            [
+                "dc8d03e0.70ea4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "dc8d03e0.70ea4",
+        "type": "debug",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "df0bfedf.9d43e",
+        "type": "inject",
+        "z": "bffacb5d.ca7278",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "2d034dd7.a908a2"
+            ]
+        ]
+    },
+    {
+        "id": "d46ab655.731168",
+        "type": "comment",
+        "z": "bffacb5d.ca7278",
+        "name": "home",
+        "info": "home",
+        "x": 610,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "8a9fb3f0.3662",
+        "type": "comment",
+        "z": "bffacb5d.ca7278",
+        "name": "Check if phone in wifi",
+        "info": "",
+        "x": 550,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b5fb9b26.360c58",
+        "type": "comment",
+        "z": "bffacb5d.ca7278",
+        "name": "If tag triggered set away",
+        "info": "",
+        "x": 520,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3882ec35.c64df4",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 1,
+        "legacy": false,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    },
+    {
+        "id": "6d82b1f6.ec44",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 1,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]

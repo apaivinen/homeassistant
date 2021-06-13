@@ -1,0 +1,320 @@
+[
+    {
+        "id": "5a0e6ead.b0966",
+        "type": "tab",
+        "label": "awake or sleep?",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3faabf38.2c7c6",
+        "type": "inject",
+        "z": "5a0e6ead.b0966",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "num",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "bef44f0e.b58d"
+            ]
+        ]
+    },
+    {
+        "id": "d14adb40.2540f8",
+        "type": "debug",
+        "z": "5a0e6ead.b0966",
+        "name": "Debug sleep",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1370,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bef44f0e.b58d",
+        "type": "api-current-state",
+        "z": "5a0e6ead.b0966",
+        "name": "Current state - Concscious",
+        "server": "6d82b1f6.ec44",
+        "version": 2,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_select.conscious",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "f4270b00.afd658"
+            ]
+        ]
+    },
+    {
+        "id": "34f0f199.edca4e",
+        "type": "switch",
+        "z": "5a0e6ead.b0966",
+        "name": "Check status",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Awake",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Sleep",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "74c65fbf.c8216"
+            ],
+            [
+                "81f83704.877f88"
+            ]
+        ],
+        "outputLabels": [
+            "Awake",
+            "Sleep"
+        ]
+    },
+    {
+        "id": "74c65fbf.c8216",
+        "type": "time-range-switch",
+        "z": "5a0e6ead.b0966",
+        "name": "Is it night?",
+        "lat": "",
+        "lon": "",
+        "startTime": "18:00",
+        "endTime": "03:30",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 790,
+        "y": 320,
+        "wires": [
+            [
+                "65d4a039.71f1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "81f83704.877f88",
+        "type": "time-range-switch",
+        "z": "5a0e6ead.b0966",
+        "name": "Is it morning?",
+        "lat": "",
+        "lon": "",
+        "startTime": "03:30",
+        "endTime": "18:00",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 800,
+        "y": 520,
+        "wires": [
+            [
+                "11e21cca.de42c3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f4270b00.afd658",
+        "type": "rbe",
+        "z": "5a0e6ead.b0966",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "x": 230,
+        "y": 420,
+        "wires": [
+            [
+                "34f0f199.edca4e"
+            ]
+        ]
+    },
+    {
+        "id": "11e21cca.de42c3",
+        "type": "api-call-service",
+        "z": "5a0e6ead.b0966",
+        "name": "Set conscious to Awake",
+        "server": "6d82b1f6.ec44",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_select",
+        "service": "select_option",
+        "entityId": "input_select.conscious",
+        "data": "{\"option\":\"Awake\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1110,
+        "y": 520,
+        "wires": [
+            [
+                "c93ba1c6.4ffd"
+            ]
+        ]
+    },
+    {
+        "id": "65d4a039.71f1",
+        "type": "api-call-service",
+        "z": "5a0e6ead.b0966",
+        "name": "Set conscious to Sleep",
+        "server": "6d82b1f6.ec44",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_select",
+        "service": "select_option",
+        "entityId": "input_select.conscious",
+        "data": "{\"option\":\"Sleep\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1100,
+        "y": 320,
+        "wires": [
+            [
+                "d14adb40.2540f8"
+            ]
+        ]
+    },
+    {
+        "id": "c93ba1c6.4ffd",
+        "type": "debug",
+        "z": "5a0e6ead.b0966",
+        "name": "Debug awake",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c960cec0.c9a8e",
+        "type": "comment",
+        "z": "5a0e6ead.b0966",
+        "name": "Awake",
+        "info": "",
+        "x": 590,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2a81dd19.9ec862",
+        "type": "comment",
+        "z": "5a0e6ead.b0966",
+        "name": "Sleep",
+        "info": "",
+        "x": 590,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "19c286f0.a386d9",
+        "type": "ha-tag",
+        "z": "5a0e6ead.b0966",
+        "name": "Bedroom tag",
+        "server": "6d82b1f6.ec44",
+        "version": 0,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "tags": [
+            "82685f33-ea7a-4e7b-903d-64179d433866"
+        ],
+        "devices": [],
+        "x": 250,
+        "y": 280,
+        "wires": [
+            [
+                "bef44f0e.b58d"
+            ]
+        ]
+    },
+    {
+        "id": "6d82b1f6.ec44",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 1,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]

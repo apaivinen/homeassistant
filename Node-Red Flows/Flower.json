@@ -1,0 +1,172 @@
+[
+    {
+        "id": "dd1ddd2a.0179",
+        "type": "tab",
+        "label": "Flower",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c9f3b0df.8afa9",
+        "type": "api-current-state",
+        "z": "dd1ddd2a.0179",
+        "name": "Check if yucca needs water",
+        "server": "6d82b1f6.ec44",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "40",
+        "halt_if_type": "num",
+        "halt_if_compare": "lt",
+        "entity_id": "sensor.jukkapalmu_humidity_2",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "a8b003cc.c2fff"
+            ],
+            [
+                "b41e80a4.c5439"
+            ]
+        ]
+    },
+    {
+        "id": "1902c193.7627ee",
+        "type": "inject",
+        "z": "dd1ddd2a.0179",
+        "name": "Inject every day at 12:00",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 12 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 170,
+        "y": 440,
+        "wires": [
+            [
+                "c9f3b0df.8afa9"
+            ]
+        ]
+    },
+    {
+        "id": "a8b003cc.c2fff",
+        "type": "api-call-service",
+        "z": "dd1ddd2a.0179",
+        "name": "Send notification to Anssi",
+        "server": "6d82b1f6.ec44",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_lya_l29",
+        "entityId": "",
+        "data": "{\"message\":\"Jukkapalmu tarvitsee vettä\",\"title\":\"Kasvin kastelu\"}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 790,
+        "y": 420,
+        "wires": [
+            [
+                "88868c6e.a173a"
+            ]
+        ]
+    },
+    {
+        "id": "88868c6e.a173a",
+        "type": "debug",
+        "z": "dd1ddd2a.0179",
+        "name": "True debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "b41e80a4.c5439",
+        "type": "debug",
+        "z": "dd1ddd2a.0179",
+        "name": "False debug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9dce1026.0d15",
+        "type": "comment",
+        "z": "dd1ddd2a.0179",
+        "name": "Needs water",
+        "info": "",
+        "x": 510,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "faef4b85.ec37f8",
+        "type": "comment",
+        "z": "dd1ddd2a.0179",
+        "name": "Does not need water",
+        "info": "",
+        "x": 490,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "6d82b1f6.ec44",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 1,
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]
