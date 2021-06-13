@@ -2,7 +2,7 @@
 
 I'm not using HACS so there's a lot of manually installed components.
 
-Lovelace cards:  
+<a href='www/custom-lovelace/README.md'> Lovelace cards:  </a>
 - Banner Card
 - Battery state card
 - Sun card
