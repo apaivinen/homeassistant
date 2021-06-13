@@ -9,7 +9,7 @@ I'm not using HACS so there's a lot of manually installed components.
 - Slider button card
 - Swipe card
 
-<a href='/blueprints/automation/homeassistant/README.md'>Blueprints:  </a>
+<a href='blueprints/automation/homeassistant/README.md'>Blueprints:  </a>
 - dim lights based on sun
 - motion light with sun condition
 - motion light
@@ -18,7 +18,7 @@ I'm not using HACS so there's a lot of manually installed components.
 - wake-up alarm with sunrise
 - zwavejs aeotec z130 quad wallmote switch
 
-Node red flows
+<a href='Node-Red Flows/README.md'>Node red flows:  </a>
 - Awake or sleep
 - flower
 - is anybody home
