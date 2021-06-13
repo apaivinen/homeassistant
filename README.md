@@ -7,13 +7,6 @@ Hardware:
 
 I'm not using HACS so there's a lot of manually installed components.
 
-## <a href='www/custom-lovelace/'> Custom Lovelace card resources  </a>
-- Banner Card
-- Battery state card
-- Sun card
-- Slider button card
-- Swipe card
-
 ## <a href='blueprints/automation/homeassistant/'>Blueprints  </a>
 - dim lights based on sun
 - motion light with sun condition
@@ -38,6 +31,13 @@ I'm not using HACS so there's a lot of manually installed components.
 - Slider card demo
 - Weather card
 
+
+## <a href='www/custom-lovelace/'> Custom Lovelace card resources  </a>
+- Banner Card
+- Battery state card
+- Sun card
+- Slider button card
+- Swipe card
 
 ## Ruuvitag integration
 Ruuvitag is integrated by 3rd party integartion not found in HA Integrations.  
