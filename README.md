@@ -1,4 +1,9 @@
 # My Home Assistant info
+Hardware:  
+- Raspberry Pi 4 Model B 4GB
+- Zwave stick:  ACC-UZB3-E-STA
+- Zigbee stick: Conbee II
+- SSD with USB3 case
 
 I'm not using HACS so there's a lot of manually installed components.
 
