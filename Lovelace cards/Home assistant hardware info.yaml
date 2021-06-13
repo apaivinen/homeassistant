@@ -1,0 +1,55 @@
+title: Home Assistant hardware info
+cards:
+  - cards:
+      - graph: line
+        type: sensor
+        name: CPU Usage
+        entity: sensor.processor_use_percent
+        icon: mdi:other
+        detail: 2
+      - graph: line
+        type: sensor
+        name: CPU Temp
+        entity: sensor.cpu_temperature
+        icon: mdi:other
+        detail: 2
+    type: horizontal-stack
+  - cards:
+      - type: sensor
+        graph: line
+        entity: sensor.memory_use
+        name: Memory Usage
+        detail: 2
+        unit: MB
+        icon: mdi:other
+      - type: sensor
+        graph: line
+        entity: sensor.disk_use_home
+        name: Disk space used
+        detail: 2
+        unit: GB
+        icon: mdi:other
+    type: horizontal-stack
+  - cards:
+      - type: entities
+        entities:
+          - entity: sensor.disk_free_home
+            name: Disk free
+          - entity: sensor.memory_free
+          - entity: sensor.last_boot
+    type: horizontal-stack
+  - cards:
+      - graph: line
+        type: sensor
+        name: Network in
+        entity: sensor.network_throughput_in_eth0
+        icon: mdi:download-network-outline
+    type: horizontal-stack
+  - cards:
+      - graph: line
+        type: sensor
+        name: Network out
+        entity: sensor.network_throughput_out_eth0
+        icon: mdi:upload-network-outline
+    type: horizontal-stack
+type: vertical-stack

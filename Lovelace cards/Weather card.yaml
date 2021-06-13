@@ -1,0 +1,16 @@
+type: vertical-stack
+cards:
+  - type: weather-forecast
+    entity: weather.home
+  - type: custom:sun-card
+    darkMode: true
+    language: null
+    showAzimuth: false
+    showElevation: true
+    timeFormat: "24"
+  - type: entities
+    entities:
+      - entity: sensor.living_room_sensor
+        name: Room temp
+      - entity: sensor.living_room_sensor_2
+        name: Light level

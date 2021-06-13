@@ -1,0 +1,81 @@
+title: Battery levels
+cards:
+  - cards:
+      - type: gauge
+        min: 0
+        max: 100
+        name: Bedroom MS
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        entity: sensor.bedroom_motion_sensor_battery_level
+      - type: gauge
+        min: 0
+        max: 100
+        name: Closet MS
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        entity: sensor.closet_motion_sensor_battery_level
+      - type: gauge
+        min: 0
+        max: 100
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        entity: sensor.hallway_motion_sensor_battery_level
+        name: Hallway MS
+    type: horizontal-stack
+  - cards:
+      - type: gauge
+        entity: sensor.kitchen_motion_sensor_battery_level
+        min: 0
+        max: 100
+        name: Kitchen MS
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+      - type: gauge
+        min: 0
+        max: 100
+        name: Wallmote
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        entity: sensor.wallmote_quad_battery_level
+      - type: gauge
+        min: 0
+        max: 100
+        entity: sensor.lya_l29_battery_level
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        name: Phone
+    type: horizontal-stack
+  - cards:
+      - type: gauge
+        min: 0
+        max: 100
+        severity:
+          green: 50
+          yellow: 40
+          red: 30
+        entity: sensor.openclose_9_battery_level
+        name: Door sensor
+      - type: gauge
+        min: 1500
+        max: 3300
+        name: Jukkapalmu
+        severity:
+          green: 2900
+          yellow: 2500
+          red: 2000
+        entity: sensor.jukkapalmu_battery_2
+    type: horizontal-stack
+type: vertical-stack

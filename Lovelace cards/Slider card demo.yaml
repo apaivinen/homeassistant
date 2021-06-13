@@ -1,0 +1,58 @@
+type: horizontal-stack
+cards:
+  - type: entities
+    entities:
+      - type: custom:slider-button-card
+        entity: light.desk_light
+        slider:
+          percentage: true
+          direction: left-right
+          background: gradient
+          use_state_color: false
+          use_percentage_bg_opacity: false
+          show_track: false
+          force_square: false
+        show_name: true
+        show_state: true
+        icon:
+          show: true
+          use_state_color: true
+          rotate: false
+          tap_action:
+            action: more-info
+        action_button:
+          mode: toggle
+          icon: mdi:power
+          show: true
+          show_spinner: true
+          tap_action:
+            action: toggle
+    show_header_toggle: false
+    state_color: true
+  - type: entities
+    entities:
+      - type: custom:slider-button-card
+        entity: light.olohuone
+        slider:
+          percentage: true
+          direction: left-right
+          background: gradient
+          use_state_color: false
+          use_percentage_bg_opacity: false
+          show_track: false
+          force_square: false
+        show_name: true
+        show_state: true
+        icon:
+          show: true
+          use_state_color: true
+          rotate: false
+          tap_action:
+            action: more-info
+        action_button:
+          mode: toggle
+          icon: mdi:power
+          show: true
+          show_spinner: true
+          tap_action:
+            action: toggle

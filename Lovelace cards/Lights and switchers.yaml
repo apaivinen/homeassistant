@@ -1,0 +1,35 @@
+type: horizontal-stack
+cards:
+  - type: entities
+    title: Lights
+    entities:
+      - entity: light.olohuone
+        name: Living room
+      - entity: light.hallway_1
+        name: Hallway
+      - entity: light.makuuhuone_1
+        name: Bedroom
+      - entity: light.kitchen_general_light
+        name: Kitchen
+      - entity: light.closet_light
+        name: Closet
+      - entity: light.desk_light
+        name: Desk
+  - type: entities
+    title: Switches
+    entities:
+      - entity: switch.bedroom_on_off_plug_in_unit
+        name: Bedlight
+        icon: mdi:bed-empty
+      - entity: switch.coffee_maker_on_off_plug_in_unit
+        name: Moccamaster
+        icon: mdi:coffee
+      - entity: switch.lantern_on_off_plug_in_unit
+        name: Lantern
+        icon: mdi:lighthouse
+      - entity: switch.metered_wall_plug_switch
+        name: TV outlet
+        icon: mdi:television-classic
+      - entity: switch.amplifiers_on_off_plug_in_unit
+        name: TV Audio devices
+        icon: mdi:amplifier

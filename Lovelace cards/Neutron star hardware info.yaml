@@ -1,0 +1,46 @@
+title: Neutron star hardware info
+cards:
+  - cards:
+      - graph: line
+        type: sensor
+        name: CPU Usage
+        icon: mdi:other
+        entity: sensor.neutronstar_cpuload
+        detail: 2
+      - graph: line
+        type: sensor
+        name: CPU Temp
+        icon: mdi:other
+        entity: sensor.neutronstar_cputemp
+        detail: 2
+    type: horizontal-stack
+  - cards:
+      - graph: line
+        type: sensor
+        name: Memory Usage
+        icon: mdi:other
+        entity: sensor.neutronstar_memoryuse
+        detail: 2
+      - graph: line
+        type: sensor
+        name: Disk Usage
+        icon: mdi:other
+        entity: sensor.neutronstar_diskusage
+        detail: 2
+    type: horizontal-stack
+  - cards:
+      - type: entities
+        entities:
+          - entity: sensor.neutronstar_diskavailable
+            icon: mdi:harddisk
+            name: Disk available
+          - entity: sensor.neutronstar_memoryfree
+            icon: mdi:memory
+            name: Memory available
+          - type: attribute
+            entity: sensor.neutronstar_monitor
+            name: Uptime
+            icon: mdi:clock
+            attribute: uptime
+    type: horizontal-stack
+type: vertical-stack
