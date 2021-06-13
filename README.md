@@ -7,6 +7,16 @@ Hardware:
 
 I'm not using HACS so there's a lot of manually installed components.
 
+## Addons  
+- MariaDB  
+- Mosquitto broker  
+- Node-RED  
+- Samba share 
+- Terminal & SSH  
+- Visual studio code  
+- Z-Wave JS  
+- deCONZ  
+
 ## <a href='blueprints/automation/homeassistant/'>Blueprints  </a>
 - dim lights based on sun
 - motion light with sun condition
