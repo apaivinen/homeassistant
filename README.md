@@ -9,7 +9,7 @@ Lovelace cards:
 - Slider button card
 - Swipe card
 
-<a href='blueprints/automation/homeassistant/README.md'>Blueprints:  </a>
+<a href='/blueprints/automation/homeassistant/README.md'>Blueprints:  </a>
 - dim lights based on sun
 - motion light with sun condition
 - motion light
