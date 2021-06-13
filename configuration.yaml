@@ -1,0 +1,168 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Sun integration
+sun:
+
+#MariaDB for log & history
+recorder:
+  db_url: !secret mariadb_connectionString
+
+#MQTT
+mqtt:
+  broker: !secret MQTT_ip
+  port: !secret MQTT_port
+  username: !secret MQTT_username
+  password: !secret MQTT_password
+
+sensor:
+  - platform: ruuvi
+    sensors:
+      - mac: "D3:1F:EA:4F:06:1E"
+        name: "Jukkapalmu"
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: disk_use
+        arg: /home
+      - type: disk_free
+        arg: /home
+      - type: memory_free
+      - type: memory_use
+      - type: processor_use
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+      - type: throughput_network_in
+        arg: eth0
+      - type: throughput_network_out
+        arg: eth0
+      - type: last_boot
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    # If errors occur, make sure configuration file is encoded as UTF-8
+    unit_of_measurement: "°C"
+    value_template: "{{ value | multiply(0.001) | round(1) }}"
+    scan_interval: 5
+  - platform: mqtt #MQTT STUFF STARTS HERE
+    name: "Anssi's Mood"
+    state_topic: "home-assistant/anssi/mood"
+  - platform: mqtt
+    name: "blackhole monitor"
+    state_topic: "blackhole"
+    value_template: "{{ value_json.cpuload }}"
+    json_attributes_topic: "blackhole"
+    json_attributes_template: >
+      { "cpuload": "{{value_json.cpuload}}",
+       "cputemp": "{{value_json.cputemp}}",
+       "memorypercent": "{{value_json.memorypercent}}" ,
+       "memoryuse": "{{value_json.memoryuse}}" ,
+       "memoryfree": "{{value_json.memoryfree}}" ,
+       "memorytotal": "{{value_json.memorytotal}}" ,
+       "diskusage": "{{value_json.diskusage | float / 1024 }}" ,
+       "diskavailable": "{{value_json.diskavailable | float / 1024 }}" ,
+       "disktotal": "{{value_json.disktotal | float / 1024 }}",
+       "uptime": "{{value_json.uptime}}" }
+  - platform: template
+    sensors:
+      blackhole_cpuload:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'cpuload') }}"
+        friendly_name: Black hole CPU load
+        unit_of_measurement: "%"
+      blackhole_cputemp:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'cputemp') }}"
+        friendly_name: Black hole CPU temptature
+        unit_of_measurement: "°C"
+      blackhole_memorypercent:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'memorypercent') }}"
+        friendly_name: Black hole memory in use percent
+        unit_of_measurement: "%"
+      blackhole_memoryuse:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'memorytotal')|float - state_attr('sensor.blackhole_monitor', 'memoryfree')|float }}"
+        friendly_name: Black hole memory in use
+        unit_of_measurement: "MB"
+      blackhole_memoryfree:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'memoryfree') }}"
+        friendly_name: Blackhole free memory
+        unit_of_measurement: "MB"
+      blackhole_memorytotal:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'memorytotal') }}"
+        friendly_name: Blackhole total memory
+        unit_of_measurement: "MB"
+      blackhole_diskusage:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'diskusage') | round(2) }}"
+        friendly_name: Blackhole Disk usage
+        unit_of_measurement: "GB"
+      blackhole_diskavailable:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'diskavailable') | round(2) }}"
+        friendly_name: Blackhole Disk Available
+        unit_of_measurement: "GB"
+      blackhole_disktotal:
+        value_template: "{{ state_attr('sensor.blackhole_monitor', 'disktotal') | round(2) }}"
+        friendly_name: Blackhole Disk size
+        unit_of_measurement: "GB"
+  - platform: mqtt
+    name: "Neutronstar monitor"
+    state_topic: "neutronstar"
+    value_template: "{{ value_json.cpuload }}"
+    json_attributes_topic: "neutronstar"
+    json_attributes_template: >
+      { "cpuload": "{{value_json.cpuload}}",
+        "cputemp": "{{value_json.cputemp}}",
+        "memorypercent": "{{value_json.memorypercent}}" ,
+        "memoryuse": "{{value_json.memoryuse}}" ,
+        "memoryfree": "{{value_json.memoryfree}}" ,
+        "memorytotal": "{{value_json.memorytotal}}" ,
+        "diskusage": "{{value_json.diskusage | float / 1024 }}" ,
+        "diskavailable": "{{value_json.diskavailable | float / 1024 }}" ,
+        "disktotal": "{{value_json.disktotal | float / 1024 }}",
+        "uptime": "{{value_json.uptime}}" }
+  - platform: template
+    sensors:
+      neutronstar_cpuload:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'cpuload') }}"
+        friendly_name: Neutron star CPU load
+        unit_of_measurement: "%"
+      neutronstar_cputemp:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'cputemp') }}"
+        friendly_name: Neutron star CPU temptature
+        unit_of_measurement: "°C"
+      neutronstar_memorypercent:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'memorypercent') }}"
+        friendly_name: Neutron star memory in use percent
+        unit_of_measurement: "%"
+      neutronstar_memoryuse:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'memorytotal')|float - state_attr('sensor.neutronstar_monitor', 'memoryfree')|float }}"
+        friendly_name: Neutron star memory in use
+        unit_of_measurement: "MB"
+      neutronstar_memoryfree:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'memoryfree') }}"
+        friendly_name: Neutron star free memory
+        unit_of_measurement: "MB"
+      neutronstar_memorytotal:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'memorytotal') }}"
+        friendly_name: Neutron star total memory
+        unit_of_measurement: "MB"
+      neutronstar_diskusage:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'diskusage') | round(2) }}"
+        friendly_name: Neutron star Disk usage
+        unit_of_measurement: "GB"
+      neutronstar_diskavailable:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'diskavailable') | round(2) }}"
+        friendly_name: Neutron star Disk Available
+        unit_of_measurement: "GB"
+      neutronstar_disktotal:
+        value_template: "{{ state_attr('sensor.neutronstar_monitor', 'disktotal') | round(2) }}"
+        friendly_name: Neutron star Disk size
+        unit_of_measurement: "GB"

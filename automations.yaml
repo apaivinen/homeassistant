@@ -1,0 +1,254 @@
+- id: '1622228801842'
+  alias: Motion-activated Wall socket
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_wallOutlet.yaml
+    input:
+      switch_target:
+        entity_id: switch.bedroom_on_off_plug_in_unit
+      motion_entity: binary_sensor.bedroom_motion_sensor
+- id: '1622229820788'
+  alias: 'Closet motion light '
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.closet_motion_sensor
+      light_target:
+        entity_id: light.closet_light
+      no_motion_wait: 60
+- id: '1622229896314'
+  alias: Kitchen Motion Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.kitchen_motion_sensor
+      light_target:
+        entity_id: light.kitchen_general_light
+- id: '1622272344105'
+  alias: Aeotec WallMote Quad
+  description: Aeotec WallMote Quad
+  use_blueprint:
+    path: homeassistant/zwavejs-aeon-labs-aeotec-zw130-wallmote-quad-all-scenes-supported.yaml
+    input:
+      zwavejs_device: e57b6ba770cc29846cd0d5e6e6441831
+      tap_top_left_actions:
+      - type: toggle
+        device_id: 86211371cb6f94abedda78b5018fcee1
+        entity_id: light.olohuone
+        domain: light
+      tap_top_right_actions:
+      - type: toggle
+        device_id: c05b35f4f9c18a519a56a1b38bc89be4
+        entity_id: light.hallway_1
+        domain: light
+      tap_bottom_left_actions:
+      - type: toggle
+        device_id: c9f566d133399ce0c2ee2aae33a7a1a9
+        entity_id: light.makuuhuone_1
+        domain: light
+      tap_bottom_right_actions:
+      - choose:
+        - conditions:
+          - condition: device
+            type: is_off
+            device_id: b5ccadc16d65ecb57d801ada40529ab0
+            entity_id: light.desk_light
+            domain: light
+          sequence:
+          - type: turn_on
+            device_id: b5ccadc16d65ecb57d801ada40529ab0
+            entity_id: light.desk_light
+            domain: light
+          - scene: scene.desklight_free_time
+          - service: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.free_time_light_helper
+        - conditions:
+          - condition: device
+            type: is_on
+            device_id: b5ccadc16d65ecb57d801ada40529ab0
+            entity_id: light.desk_light
+            domain: light
+          - condition: state
+            entity_id: input_boolean.meeting_light_helper
+            state: 'on'
+          sequence:
+          - scene: scene.desklight_free_time
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.meeting_light_helper
+          - service: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.free_time_light_helper
+        default:
+        - type: turn_off
+          device_id: b5ccadc16d65ecb57d801ada40529ab0
+          entity_id: light.desk_light
+          domain: light
+        - service: input_boolean.turn_off
+          target:
+            entity_id:
+            - input_boolean.free_time_light_helper
+            - input_boolean.meeting_light_helper
+      hold_bottom_right_actions:
+      - choose:
+        - conditions:
+          - condition: device
+            type: is_on
+            device_id: b5ccadc16d65ecb57d801ada40529ab0
+            entity_id: light.desk_light
+            domain: light
+          sequence:
+          - scene: scene.desklight_meeting
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.free_time_light_helper
+          - service: input_boolean.turn_on
+            target:
+              entity_id: input_boolean.meeting_light_helper
+        default:
+        - type: turn_on
+          device_id: b5ccadc16d65ecb57d801ada40529ab0
+          entity_id: light.desk_light
+          domain: light
+        - scene: scene.desklight_meeting
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.meeting_light_helper
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.free_time_light_helper
+- id: '1622278624297'
+  alias: TV Audio Devices Off
+  description: Turn off TV audio devices
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.metered_wall_plug_switch_power
+    below: '40'
+    for: '10'
+  condition:
+  - condition: device
+    type: is_on
+    device_id: f195988aa60668e9720b95403ebfd123
+    entity_id: switch.amplifiers_on_off_plug_in_unit
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: f195988aa60668e9720b95403ebfd123
+    entity_id: switch.amplifiers_on_off_plug_in_unit
+    domain: switch
+  mode: single
+- id: '1622278722579'
+  alias: TV Audio Devices On
+  description: Turn on TV Audio devices
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.metered_wall_plug_switch_power
+    above: '70'
+  condition:
+  - condition: device
+    type: is_off
+    device_id: f195988aa60668e9720b95403ebfd123
+    entity_id: switch.amplifiers_on_off_plug_in_unit
+    domain: switch
+  action:
+  - type: turn_on
+    device_id: f195988aa60668e9720b95403ebfd123
+    entity_id: switch.amplifiers_on_off_plug_in_unit
+    domain: switch
+  mode: single
+- id: '1622279740639'
+  alias: Bedroom motion bedlight
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_wallOutlet.yaml
+    input:
+      motion_entity: binary_sensor.bedroom_motion_sensor
+      switch_target:
+        entity_id: switch.bedroom_on_off_plug_in_unit
+      no_motion_wait: 90
+- id: '1622285902114'
+  alias: Sleepmode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_select.conscious
+    to: Sleep
+  condition: []
+  action:
+  - scene: scene.put_lights_to_sleep
+  mode: single
+- id: '1622303058198'
+  alias: New Automation
+  description: ''
+  use_blueprint:
+    path: homeassistant/zwavejs-aeon-labs-aeotec-zw130-wallmote-quad-all-scenes-supported.yaml
+    input:
+      zwavejs_device: e57b6ba770cc29846cd0d5e6e6441831
+- id: '1622977734149'
+  alias: Hallway Motion Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.hallway_motion_sensor
+      light_target:
+        device_id: c05b35f4f9c18a519a56a1b38bc89be4
+      no_motion_wait: 90
+- id: '1622983968002'
+  alias: Kitchen Motion Light with sun condition
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light with_sun_condition.yaml
+    input:
+      motion_entity: binary_sensor.kitchen_motion_sensor
+      light_target:
+        device_id: 877636ad9685c8b10b5725df21e5b8a0
+      no_motion_wait: 90
+      sunrise_offset: 60
+      sunset_offset: -3600
+- id: '1622987558867'
+  alias: test automation notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.desk_light
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_lya_l29
+    data:
+      title: The house is on fire and the turtle is stuck in the dryer!
+      message: Test
+      data:
+        sticky: 'true'
+        color: '#2DF56D'
+  mode: single
+- id: '1623002359830'
+  alias: Dim lights based on sun elevation
+  description: ''
+  use_blueprint:
+    path: homeassistant/dim_light_based_on_sun.yaml
+    input:
+      target_lights:
+        device_id: c05b35f4f9c18a519a56a1b38bc89be4
+      start_elevation_setting: 35
+      end_elevation_setting: -30
+- id: '1623352351517'
+  alias: Notify if door is open
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.openclose_9
+    from: 'off'
+    for: 00:00:30
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.mobile_app_lya_l29
+    data:
+      message: Jätit sitten sisäoven auki
+      title: Ovi on auki
+  mode: single

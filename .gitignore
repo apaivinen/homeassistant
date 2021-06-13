@@ -1,0 +1,32 @@
+#whitelist files
+!*.yaml
+!.gitignore
+!*.md
+
+
+#ignore files
+
+#log files
+*.txt
+*.log
+
+#secrets
+*secrets*
+*token*
+!secrets-DUMMY-EXAMPLE.yaml
+*.pem
+acme_reg.json
+production_auth.json
+
+#folders
+node-red/
+.storage/
+.cloud/
+
+#backups
+*.db*
+
+#tts audio cache
+tts/*.mp3
+
+#random files

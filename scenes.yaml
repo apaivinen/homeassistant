@@ -1,0 +1,107 @@
+- id: '1622273773968'
+  name: Desklight Free time
+  entities:
+    light.desk_light:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - hs
+      is_deconz_group: false
+      friendly_name: Desk light
+      supported_features: 61
+      state: 'on'
+      brightness: 120
+      rgb_color:
+      - 102
+      - 204
+      - 0
+- id: '1622273957299'
+  name: Desklight meeting
+  entities:
+    light.desk_light:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - hs
+      is_deconz_group: false
+      friendly_name: Desk light
+      supported_features: 61
+      state: 'on'
+      brightness: 255
+      rgb_color:
+      - 255
+      - 255
+      - 255
+- id: '1622286087855'
+  name: Put lights and switches to sleep
+  entities:
+    switch.amplifiers_on_off_plug_in_unit:
+      friendly_name: Amplifiers On/Off plug-in unit
+      state: 'off'
+    switch.bedroom_on_off_plug_in_unit:
+      friendly_name: Bedroom On/Off plug-in unit
+      state: 'off'
+    light.closet_light:
+      supported_color_modes:
+      - brightness
+      is_deconz_group: false
+      friendly_name: Closet light
+      supported_features: 41
+      state: 'off'
+    light.desk_light:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - hs
+      is_deconz_group: false
+      friendly_name: Desk light
+      supported_features: 61
+      state: 'off'
+    light.hallway_1:
+      min_mireds: 111
+      max_mireds: 400
+      effect_list:
+      - effect_colorloop
+      - effect_pulse
+      - effect_stop
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Hallway 1
+      supported_features: 55
+      state: 'off'
+    light.kitchen_general_light:
+      min_mireds: 140
+      max_mireds: 650
+      supported_color_modes:
+      - color_temp
+      is_deconz_group: false
+      friendly_name: Kitchen General Light
+      supported_features: 43
+      state: 'off'
+    light.makuuhuone_1:
+      min_mireds: 111
+      max_mireds: 400
+      effect_list:
+      - effect_colorloop
+      - effect_pulse
+      - effect_stop
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Makuuhuone 1
+      supported_features: 55
+      state: 'off'
+    light.olohuone:
+      min_mireds: 111
+      max_mireds: 400
+      effect_list:
+      - effect_colorloop
+      - effect_pulse
+      - effect_stop
+      supported_color_modes:
+      - color_temp
+      - hs
+      friendly_name: Olohuone
+      supported_features: 55
+      state: 'off'
