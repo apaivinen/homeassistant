@@ -1,6 +1,9 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+system_log:
+  max_entries: 200
+
 # Text to speech
 tts:
   - platform: google_translate
