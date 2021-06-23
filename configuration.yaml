@@ -14,8 +14,8 @@ scene: !include scenes.yaml
 sun:
 
 #MariaDB for log & history
-recorder:
-  db_url: !secret mariadb_connectionString
+#recorder:
+#  db_url: !secret mariadb_connectionString
 
 #MQTT
 mqtt:
