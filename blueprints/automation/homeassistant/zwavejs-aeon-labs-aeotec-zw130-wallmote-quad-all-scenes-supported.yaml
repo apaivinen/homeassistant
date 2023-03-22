@@ -16,6 +16,7 @@ blueprint:
     Source: https://community.home-assistant.io/t/zwavejs-aeon-labs-aeotec-zw130-wallmote-quad-all-scenes-supported/290685
 
     "
+  source_url: https://community.home-assistant.io/t/zwavejs-aeon-labs-aeotec-zw130-wallmote-quad-all-scenes-supported/290685
   domain: automation
   input:
     zwavejs_device:
@@ -86,7 +87,6 @@ blueprint:
       selector:
         action: {}
       default: []
-  source_url: https://community.home-assistant.io/t/zwavejs-aeon-labs-aeotec-zw130-wallmote-quad-all-scenes-supported/290685
 mode: single
 trigger:
   - platform: event
