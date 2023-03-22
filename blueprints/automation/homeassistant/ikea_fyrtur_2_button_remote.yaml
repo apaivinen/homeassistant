@@ -1,12 +1,13 @@
 ---
 blueprint:
-  #source_url: TBA
+  source_url: https://github.com/apaivinen/homeassistant/blob/master/blueprints/automation/homeassistant/ikea_fyrtur_2_button_remote.yaml
 
   name: IKEA Fyrtur (deCONZ) - 2 Button Remote with 4 Actions
 
   description: >-
     This enables Ikea tradfri (fyrtur) 2 button remote to have 4 actions.
-    Made for deconz events
+    This blueprint is modification from Niro1978 ZHA blueprint and this is modified for deconz events. Also simplified this blueprint a bit for my own taste.
+    Original blueprint source: https://github.com/niro1987/homeassistant-config/blob/main/blueprints/automation/niro1987/zha_ikea_tradfri_2button_remote_custom.yaml
 
   domain: automation
 
