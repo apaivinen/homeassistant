@@ -2,7 +2,7 @@ blueprint:
   name: Motion-activated Light with two motion sensors
   description: Turn on a light when motion is detected either of two motion sensors.
   domain: automation
-  #TBA source_url:
+  source_url: https://github.com/apaivinen/homeassistant/blob/master/blueprints/automation/homeassistant/motion_light_two_sensors.yaml
   input:
     motion_entity1:
       name: Motion Sensor 1
