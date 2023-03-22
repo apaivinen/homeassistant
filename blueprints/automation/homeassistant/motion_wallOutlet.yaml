@@ -2,7 +2,7 @@ blueprint:
   name: Motion-activated Switch
   description: Turn on a switch when motion is detected.
   domain: automation
-  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_switch.yaml
+  source_url: https://github.com/apaivinen/homeassistant/blob/master/blueprints/automation/homeassistant/motion_wallOutlet.yaml
   input:
     motion_entity:
       name: Motion Sensor
