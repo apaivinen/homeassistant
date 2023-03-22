@@ -1,0 +1,83 @@
+---
+blueprint:
+  #source_url: TBA
+
+  name: IKEA Fyrtur (deCONZ) - 2 Button Remote with 4 Actions
+
+  description: >-
+    This enables Ikea tradfri (fyrtur) 2 button remote to have 4 actions.
+    Made for deconz events
+
+  domain: automation
+
+  input:
+    remote:
+      name: IKEA TRADFRI remote control
+      description: Select the remote control you wish to use.
+      selector:
+        device:
+          integration: deconz
+          manufacturer: IKEA of Sweden
+          model: TRADFRI open/close remote
+    up_press:
+      name: Short Press - Up Button
+      description: The action to perform on Short Press of the On Button
+      selector:
+        action:
+      default: []
+    down_press:
+      name: Short Press - Down Button
+      description: The action to perform on Short Press of the Off Button
+      selector:
+        action:
+      default: []
+    up_hold:
+      name: Long Press - Up Button
+      description: The action to perform on Long Press of the On Button
+      selector:
+        action:
+      default: []
+    down_hold:
+      name: Long Press - Down Button
+      description: The action to perform on Long Press of the Off Button
+      selector:
+        action:
+      default: []
+
+mode: restart
+max_exceeded: silent
+
+trigger:
+  - platform: event
+    event_type: deconz_event
+    event_data:
+      device_id: !input remote
+
+action:
+  - choose:
+      # Short-Press the on button
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 1002 }}"
+        sequence: !input up_press
+
+      # Long-Press the on button
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 1003 }}"
+        sequence: !input up_hold
+
+      # Short-Press the off button
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 2002 }}"
+        sequence: !input down_press
+
+      # Long-Press the off button
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.event == 2003 }}"
+        sequence: !input down_hold
+
+    # Any other event will cancel the repeat loops (i.e. releasing the [on|off] button)
+    default: []
