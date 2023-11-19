@@ -1,0 +1,6 @@
+graph: line
+hours_to_show: 6
+type: sensor
+entity: sensor.nordpool_kwh_fi_eur_4_095_024
+detail: 2
+name: Nordpool spot price with taxes
