@@ -1,0 +1,120 @@
+type: vertical-stack
+title: Lights
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.olohuone
+        use_light_color: true
+        collapsible_controls: true
+        name: Death Star
+        layout: vertical
+        secondary_info: none
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+      - type: custom:mushroom-light-card
+        entity: light.elgato_key_light_air
+        name: Key light
+        use_light_color: true
+        collapsible_controls: true
+        layout: vertical
+        secondary_info: none
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+      - type: custom:mushroom-light-card
+        entity: light.hallway_1
+        name: Nordpool
+        use_light_color: true
+        collapsible_controls: true
+        layout: vertical
+        secondary_info: none
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.makuuhuone_1
+        use_light_color: true
+        collapsible_controls: true
+        name: Dining table
+        layout: vertical
+        secondary_info: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: more-info
+      - type: custom:mushroom-light-card
+        entity: light.kitchen_cabinet_light_strip
+        use_light_color: true
+        collapsible_controls: true
+        name: Cabinet up
+        layout: vertical
+        secondary_info: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: more-info
+      - type: custom:mushroom-light-card
+        entity: light.elgato_light_strip
+        use_light_color: true
+        collapsible_controls: true
+        name: Cabinet down
+        layout: vertical
+        secondary_info: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: more-info
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.bed_light_strip
+        use_light_color: true
+        collapsible_controls: true
+        name: Bed light
+        layout: vertical
+        secondary_info: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: more-info
+      - type: custom:mushroom-light-card
+        entity: light.wled
+        use_light_color: true
+        collapsible_controls: true
+        layout: vertical
+        name: Hallway
+        secondary_info: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: more-info
+  - type: custom:mushroom-template-card
+    primary: Motion light automation on/off
+    secondary: |-
+      {% if states('input_boolean.helper_stealth') == "off" %} 
+      Motion lights are active
+      {% elif states('input_boolean.helper_stealth') == "on" %} 
+      Motion lights are off
+      {% endif %}
+    icon: mdi:light-switch
+    icon_color: |-
+      {% if states('input_boolean.helper_stealth') == "off" %} 
+      yellow
+      {% elif states('input_boolean.helper_stealth') == "on" %} 
+      grey
+      {% endif %}
+    tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.ui_turn_on_off_motion_lights_button
+      data:
+        skip_condition: true
+    badge_icon: ''

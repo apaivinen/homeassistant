@@ -1,0 +1,312 @@
+title: Blinds & Privacy
+cards:
+  - cards:
+      - type: custom:button-card
+        show_entity_picture: true
+        state:
+          - value: 'off'
+            icon: mdi:curtains
+            name: TV blind automation is ON
+            color: green
+          - value: 'on'
+            icon: mdi:curtains-closed
+            name: TV blind automation is OFF
+            color: red
+        tap_action:
+          action: toggle
+        entity: input_boolean.privacy_living_room
+        show_state: false
+        show_label: true
+        size: 20%
+    type: horizontal-stack
+  - cards:
+      - type: custom:mushroom-template-card
+        entity_id: cover.living_room_blind_right
+        primary: Living room blinds
+        secondary: >-
+          {% if state_attr('cover.living_room_blind_right','current_position')
+          >= 93 %}
+            Open
+          {% elif state_attr('cover.living_room_blind_right','current_position')
+          < 93 and
+          state_attr('cover.living_room_blind_right','current_position') > 20 %}
+            {{ state_attr('cover.living_room_blind_right','current_position') }}% open
+          {% elif state_attr('cover.living_room_blind_right','current_position')
+          <= 20 %}
+            Closed
+          {% endif %}
+        icon: >-
+          {% if state_attr('cover.living_room_blind_right','current_position')
+          >= 50 %}
+            mdi:curtains
+          {% else %}
+            mdi:curtains-closed
+          {% endif %}
+        icon_color: >-
+          {% if state_attr('cover.living_room_blind_right','current_position')
+          >= 93 %}
+            green
+          {% elif state_attr('cover.living_room_blind_right','current_position')
+          < 93 and
+          state_attr('cover.living_room_blind_right','current_position') > 20 %}
+            yellow
+          {% elif state_attr('cover.living_room_blind_right','current_position')
+          <= 20 %}
+            red
+          {% endif %}
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.living_room_blind_up_and_down_button
+          data:
+            skip_condition: true
+      - type: custom:mushroom-template-card
+        entity_id: cover.window_covering_device_6
+        primary: Kitchen blinds
+        secondary: '{{states.cover.kitchen_switchbot_blind_tilt_2101_right.state}}'
+        icon: >-
+          {% if states.cover.kitchen_switchbot_blind_tilt_2101_right.state ==
+          'open' %}
+            mdi:blinds-horizontal
+          {% else %}
+            mdi:blinds-horizontal-closed
+          {% endif %}
+        icon_color: >-
+          {% if states.cover.kitchen_switchbot_blind_tilt_2101_right.state ==
+          'open' %}
+            green
+          {% elif states.cover.kitchen_switchbot_blind_tilt_2101_right.state ==
+          'unavailable' %}
+            orange
+          {% else %}
+            red
+          {% endif %}
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.kitchen_blinds_open_or_closed_control
+          data:
+            skip_condition: true
+    type: horizontal-stack
+  - cards:
+      - type: custom:mushroom-template-card
+        entity_id: cover.tyohuone_blind
+        primary: Nerd cave blinds
+        secondary: >-
+          {% if state_attr('cover.tyohuone_blind','current_position') >= 94 %}
+            Open
+          {% elif state_attr('cover.tyohuone_blind','current_position') < 94 and
+          state_attr('cover.tyohuone_blind','current_position') > 28 %}
+            {{ state_attr('cover.tyohuone_blind','current_position') }}% open
+          {% elif state_attr('cover.tyohuone_blind','current_position') < 28 %}
+            Closed
+          {% endif %}
+        icon: |-
+          {% if state_attr('cover.tyohuone_blind','current_position') >= 50 %}
+            mdi:curtains
+          {% else %}
+            mdi:curtains-closed
+          {% endif %}
+        icon_color: >-
+          {% if state_attr('cover.tyohuone_blind','current_position') >= 94 %}
+            green
+          {% elif state_attr('cover.tyohuone_blind','current_position') < 94 and
+          state_attr('cover.tyohuone_blind','current_position') > 28 %}
+            yellow
+          {% elif state_attr('cover.tyohuone_blind','current_position') < 28 %}
+            red
+          {% endif %}
+        tap_action:
+          action: more-info
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.tyohuone_blind_up_and_down_button
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        entity: cover.tyohuone_blind
+      - type: custom:mushroom-template-card
+        entity_id: cover.bedroom_blind
+        primary: Bedroom blinds
+        secondary: >
+          {% if state_attr('cover.bedroom_blind','current_position') >= 93 %}
+            Open
+          {% elif state_attr('cover.bedroom_blind','current_position') < 93 and
+          state_attr('cover.bedroom_blind','current_position') > 23 %}
+            {{ state_attr('cover.bedroom_blind','current_position') }}% open
+          {% elif state_attr('cover.bedroom_blind','current_position') < 23 %}
+            Closed
+          {% endif %}
+        icon: |-
+          {% if state_attr('cover.bedroom_blind','current_position') >= 50 %}
+            mdi:curtains
+          {% else %}
+            mdi:curtains-closed
+          {% endif %}
+        icon_color: >-
+          {% if state_attr('cover.bedroom_blind','current_position') >= 93 %}
+            green
+          {% elif state_attr('cover.bedroom_blind','current_position') < 93 and
+          state_attr('cover.bedroom_blind','current_position') > 25 %}
+            yellow
+          {% elif state_attr('cover.bedroom_blind','current_position') < 25 %}
+            red
+          {% endif %}
+        tap_action:
+          action: more-info
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.bedroom_blind_up_and_down_button
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        entity: cover.bedroom_blind
+    type: horizontal-stack
+  - cards:
+      - type: custom:mushroom-template-card
+        entity_id: cover.terrace_door_blind
+        primary: Terrace door blinds
+        secondary: >-
+          {% if state_attr('cover.terrace_door_blind','current_position') >= 95
+          %}
+            Open
+          {% elif state_attr('cover.terrace_door_blind','current_position') < 95
+          and state_attr('cover.terrace_door_blind','current_position') > 45 %}
+            {{ state_attr('cover.terrace_door_blind','current_position') }}% open
+          {% elif state_attr('cover.terrace_door_blind','current_position') < 45
+          %}
+            Closed
+          {% endif %}
+        icon: >-
+          {% if state_attr('cover.terrace_door_blind','current_position') >= 70
+          %}
+            mdi:curtains
+          {% else %}
+            mdi:curtains-closed
+          {% endif %}
+        icon_color: >-
+          {% if state_attr('cover.terrace_door_blind','current_position') >= 95
+          %}
+            green
+          {% elif state_attr('cover.terrace_door_blind','current_position') < 95
+          and state_attr('cover.terrace_door_blind','current_position') > 45 %}
+            yellow
+          {% elif state_attr('cover.terrace_door_blind','current_position') < 45
+          %}
+            red
+          {% endif %}
+        tap_action:
+          action: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.terrace_door_blind_up_and_down_button
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+      - type: custom:mushroom-template-card
+        entity_id: cover.window_covering_device_6
+        primary: Front door blinds
+        secondary: >-
+          {% if state_attr('cover.front_door_blind','current_position') >= 95 %}
+            Open
+          {% elif state_attr('cover.front_door_blind','current_position') < 95
+          and state_attr('cover.front_door_blind','current_position') > 10 %}
+           {{ state_attr('cover.front_door_blind','current_position') }}% open
+          {% elif state_attr('cover.front_door_blind','current_position') < 10
+          %}
+            Closed
+          {% endif %}
+        icon: |-
+          {% if state_attr('cover.front_door_blind','current_position') >= 50 %}
+            mdi:curtains
+          {% else %}
+            mdi:curtains-closed
+          {% endif %}
+        icon_color: >-
+          {% if state_attr('cover.front_door_blind','current_position') >= 95 %}
+            green
+          {% elif state_attr('cover.front_door_blind','current_position') < 95
+          and state_attr('cover.front_door_blind','current_position') > 10 %}
+            yellow
+          {% elif state_attr('cover.front_door_blind','current_position') < 10
+          %}
+           red
+          {% endif %}
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id:
+              - automation.front_door_blind_up_and_down_button
+          data:
+            skip_condition: true
+    type: horizontal-stack
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Close all blinds
+        secondary: ''
+        icon: mdi:roller-shade-closed
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id:
+              - automation.bedroom_blinds_down
+              - automation.living_room_blinds_down
+              - automation.front_door_blinds_down
+              - automation.terrace_door_blinds_down
+              - automation.tyohuone_blinds_down
+          data:
+            skip_condition: true
+        icon_color: white
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+      - type: custom:mushroom-template-card
+        primary: Open all blinds
+        secondary: ''
+        icon: mdi:roller-shade
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id:
+              - automation.bedroom_blinds_up
+              - automation.front_door_blinds_up
+              - automation.living_room_blinds_up
+              - automation.terrace_door_blinds_up
+              - automation.tyohuone_blinds_up
+          data:
+            skip_condition: true
+        badge_icon: ''
+        icon_color: white
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+type: vertical-stack

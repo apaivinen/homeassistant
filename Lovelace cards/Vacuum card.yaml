@@ -1,0 +1,148 @@
+type: vertical-stack
+title: Vacuum
+cards:
+  - type: custom:mushroom-vacuum-card
+    entity: vacuum.roborock_s7_maxv
+    commands:
+      - return_home
+    icon_animation: true
+    fill_container: false
+    name: Robo
+    secondary_info: none
+  - type: custom:mushroom-template-card
+    primary: ''
+    secondary: >-
+      {% if states('vacuum.roborock_s7_maxv') == 'docked' %}
+
+      {{states('vacuum.roborock_s7_maxv')}}
+
+      {% elif states('vacuum.roborock_s7_maxv') == 'cleaning' %}
+
+      Cleaning {{ states('input_text.helper_vacuum_location')}}
+
+      {% elif states('vacuum.roborock_s7_maxv') == 'returning' %}
+
+      Returning to dock from cleaning {{
+      states('input_text.helper_vacuum_location') }}
+
+      {% endif %}
+    icon: ''
+    entity: vacuum.roborock_s7_maxv
+    icon_color: |-
+      {% if states('vacuum.roborock_s7_maxv') == 'docked' %}
+      white
+      {% elif states('vacuum.roborock_s7_maxv') == 'cleaning' %}
+      #028a7d
+      {% elif states('vacuum.roborock_s7_maxv') == 'returning' %}
+      orange
+      {% endif %}
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+    layout: vertical
+  - type: custom:mushroom-entity-card
+    tap_action:
+      action: none
+    entity: automation.vacuum_clean_living_room_and_hallway
+    icon: mdi:robot-vacuum
+    secondary_info: none
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.vacuum_clean_living_room_and_hallway
+      data:
+        skip_condition: true
+    hold_action:
+      action: none
+    name: Clean living room & Hallway
+  - type: custom:mushroom-entity-card
+    tap_action:
+      action: none
+    entity: automation.vacuum_clean_everything_except_nerd_cave
+    icon: mdi:robot-vacuum
+    secondary_info: none
+    double_tap_action:
+      action: call-service
+      service: automation.trigger
+      target:
+        entity_id: automation.vacuum_clean_living_room_and_hallway
+      data:
+        skip_condition: true
+    hold_action:
+      action: none
+    name: Clean everything except Nerd cave
+  - type: horizontal-stack
+    title: Individual room cleaning
+    cards:
+      - type: custom:mushroom-entity-card
+        tap_action:
+          action: none
+        entity: automation.vacuum_clean_nerd_cave
+        icon: mdi:robot-happy-outline
+        secondary_info: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.vacuum_clean_nerd_cave
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        name: Clean Nerd cave
+      - type: custom:mushroom-entity-card
+        tap_action:
+          action: none
+        entity: automation.vacuum_clean_bedroom
+        icon: mdi:bed-double-outline
+        secondary_info: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.vacuum_clean_bedroom
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        name: Clean Bedroom
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-entity-card
+        tap_action:
+          action: none
+        entity: automation.vacuum_clean_hallway
+        icon: mdi:door
+        secondary_info: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id:
+              - automation.vacuum_clean_hallway
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        name: Clean Hallway
+      - type: custom:mushroom-entity-card
+        tap_action:
+          action: none
+        entity: automation.vacuum_clean_living_room
+        icon: mdi:sofa-outline
+        secondary_info: none
+        double_tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id:
+              - automation.vacuum_clean_living_room
+          data:
+            skip_condition: true
+        hold_action:
+          action: none
+        name: Clean Living room
