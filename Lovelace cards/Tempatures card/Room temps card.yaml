@@ -4,33 +4,26 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.ble_temperature_ruuvitag_living_room') |float |
-          round(2) }} °C
+        primary: '{{ states(entity) |float | round(2) }} °C'
         secondary: Living room
         icon: mdi:thermometer
         entity: sensor.ruuvitag_38a7_olohuone_temperature
         layout: vertical
         icon_color: >-
-          {% if states('sensor.ble_temperature_ruuvitag_living_room') | float <
-          20 %} 
+          {% if states(entity) | float <= 20 %} 
 
           blue
 
-          {% elif states('sensor.ble_temperature_ruuvitag_living_room') | float
-          > 20 and states('sensor.ble_temperature_ruuvitag_living_room') | float
-          < 23 %}
+          {% elif states(entity) | float > 20 and states(entity) | float < 23 %}
 
           green
 
-          {% elif states('sensor.ble_temperature_ruuvitag_living_room') | float
-          > 23 and states('sensor.ble_temperature_ruuvitag_living_room') | float
-          < 27 %}
+          {% elif states(entity) | float >= 23 and states(entity) | float < 27
+          %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_living_room') | float
-          > 27 %}
+          {% elif states(entity) | float >= 27 %}
 
           red
 
@@ -39,30 +32,25 @@ cards:
         tap_action:
           action: more-info
       - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.ble_temperature_ruuvitag_bedroom') | float |
-          round(2) }} °C
+        primary: '{{ states(entity) | float | round(2) }} °C'
         secondary: Bedroom
         icon: mdi:thermometer
         layout: vertical
         icon_color: >-
-          {% if states('sensor.ble_temperature_ruuvitag_bedroom') | float < 20
-          %} 
+          {% if states(entity) | float <= 20 %} 
 
           blue
 
-          {% elif states('sensor.ble_temperature_ruuvitag_bedroom') | float > 20
-          and states('sensor.ble_temperature_ruuvitag_bedroom') | float < 23 %}
+          {% elif states(entity) | float > 20 and states(entity) | float < 23 %}
 
           green
 
-          {% elif states('sensor.ble_temperature_ruuvitag_bedroom') | float > 23
-          and states('sensor.ble_temperature_ruuvitag_bedroom') | float < 27 %}
+          {% elif states(entity) | float >= 23 and states(entity) | float < 27
+          %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_bedroom') | float > 27
-          %}
+          {% elif states(entity) | float >= 27 %}
 
           red
 
@@ -74,31 +62,26 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.ble_temperature_ruuvitag_kitchen') | float |
-          round(2) }} °C
+        primary: '{{ states(entity) | float | round(2) }} °C'
         secondary: Kitchen
         icon: mdi:thermometer
         entity: sensor.ruuvitag_8c31_keittio_temperature
         layout: vertical
         icon_color: >-
-          {% if states('sensor.ble_temperature_ruuvitag_kitchen') | float < 20
-          %} 
+          {% if states(entity) | float <= 20 %} 
 
           blue
 
-          {% elif states('sensor.ble_temperature_ruuvitag_kitchen') | float > 20
-          and states('sensor.ble_temperature_ruuvitag_kitchen') | float < 23 %}
+          {% elif states(entity) | float > 20 and states(entity) | float < 23 %}
 
           green
 
-          {% elif states('sensor.ble_temperature_ruuvitag_kitchen') | float > 23
-          and states('sensor.ble_temperature_ruuvitag_kitchen') | float < 27 %}
+          {% elif states(entity) | float >= 23 and states(entity) | float < 27
+          %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_kitchen') | float > 27
-          %}
+          {% elif states(entity) | float >= 27 %}
 
           red
 
@@ -107,42 +90,38 @@ cards:
         tap_action:
           action: more-info
       - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.ble_temperature_ruuvitag_sauna') | float | round(2)
-          }} °C
+        primary: '{{ states(entity) | float | round(2) }} °C'
         secondary: Sauna
         icon: >-
-          {% if states('sensor.ble_temperature_ruuvitag_sauna') | float < 35 %} 
+          {% if states(entity) | float <= 35 %} 
 
           mdi:thermometer
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 35
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 50 %}
+          {% elif states(entity) | float > 35 and states(entity) | float < 50 %}
 
           mdi:heat-wave
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 50
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 55 %}
+          {% elif states(entity) | float >= 50 and states(entity) | float < 55
+          %}
 
           mdi:thermometer-low
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 59 %}
+          {% elif states(entity) | float >= 55 and states(entity) | float < 59
+          %}
 
           mdi:thermometer-plus
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 59
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 65 %}
+          {% elif states(entity) | float >= 59 and states(entity) | float < 65
+          %}
 
           mdi:thermometer
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 69 %}
+          {% elif states(entity) | float >= 55 and states(entity) | float < 69
+          %}
 
           mdi:thermometer-high
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 69
-          %}
+          {% elif states(entity) | float >= 69 %}
 
           mdi:coffin
 
@@ -150,32 +129,30 @@ cards:
         entity: sensor.ruuvitag_fc91_sauna_temperature
         layout: vertical
         icon_color: >-
-          {% if states('sensor.ble_temperature_ruuvitag_sauna') | float < 50 %} 
+          {% if states(entity) | float <= 50 %} 
 
           blue
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 50
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 55 %}
+          {% elif states(entity) | float > 50 and states(entity) | float < 55 %}
 
           cyan
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 59 %}
+          {% elif states(entity) | float >= 55 and states(entity) | float < 59
+          %}
 
           lime
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 59
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 65 %}
+          {% elif states(entity) | float >= 59 and states(entity) | float < 65
+          %}
 
           green
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 69 %}
+          {% elif states(entity) | float >= 55 and states(entity) | float < 69
+          %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 69
-          %}
+          {% elif states(entity) | float >= 69 %}
 
           red
 
@@ -186,33 +163,26 @@ cards:
   - type: vertical-stack
     cards:
       - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.ble_temperature_ruuvitag_the_room') | float |
-          round(2) }} °C
+        primary: '{{ states(entity) | float | round(2) }} °C'
         secondary: Nerd cave
         icon: mdi:thermometer
         entity: sensor.ruuvitag_76a0_tyohuone_temperature
         layout: vertical
         icon_color: >-
-          {% if states('sensor.ble_temperature_ruuvitag_the_room') | float < 20
-          %} 
+          {% if states(entity) | float <= 20 %} 
 
           blue
 
-          {% elif states('sensor.ble_temperature_ruuvitag_the_room') | float >
-          20 and states('sensor.ble_temperature_ruuvitag_the_room') | float < 23
-          %}
+          {% elif states(entity) | float > 20 and states(entity) | float < 23 %}
 
           green
 
-          {% elif states('sensor.ble_temperature_ruuvitag_the_room') | float >
-          23 and states('sensor.ble_temperature_ruuvitag_the_room') | float < 27
+          {% elif states(entity) | float >= 23 and states(entity) | float < 27
           %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_the_room') | float >
-          27 %}
+          {% elif states(entity) | float >= 27 %}
 
           red
 
@@ -221,75 +191,50 @@ cards:
         tap_action:
           action: more-info
       - type: custom:mushroom-template-card
-        primary: '{{ states(''sensor.kaikala_temperature'') }} °C'
+        primary: '{{ states(entity) }} °C'
         secondary: Outside
         icon: >-
-
-          {% if states('sensor.kaikala_temperature') | float < -20 %}
+          {% if states(entity) | float <= -20 %}
 
           mdi:skull
 
-          {% elif states('sensor.kaikala_temperature') | float > -20 and
-          states('sensor.kaikala_temperature') | float < 0 %}
+          {% elif states(entity) | float > -20 and states(entity) | float < 0 %}
 
           mdi:snowflake-thermometer
 
-          {% elif states('sensor.kaikala_temperature') | float > 0 and
-          states('sensor.kaikala_temperature') | float < 15 %}
+          {% elif states(entity) | float >= 0 and states(entity) | float < 15 %}
 
           mdi:thermometer
 
-          {% elif states('sensor.kaikala_temperature') | float > 15  and
-          states('sensor.kaikala_temperature') | float < 27 %}
+          {% elif states(entity) | float >= 15  and states(entity) | float < 27
+          %}
 
           mdi:sun-thermometer
 
-          {% elif states('sensor.kaikala_temperature') | float > 27 %}
+          {% elif states(entity) | float >= 27 %}
 
           mdi:skull-crossbones
 
           {% endif %}
         entity: sensor.kaikala_temperature
         layout: vertical
-        icon_color: >-
-          {% if states('sensor.kaikala_temperature') | float < -15 %} 
-
+        icon_color: |-
+          {% if states(entity) | float < -15 %} 
           white
-
-          {% elif states('sensor.kaikala_temperature') | float > -15 and
-          states('sensor.kaikala_temperature') | float < 0 %}
-
+          {% elif states(entity) | float > -15 and states(entity) | float < 0 %}
           #33F2FF
-
-          {% elif states('sensor.kaikala_temperature') | float > 0 and
-          states('sensor.kaikala_temperature') | float < 5 %}
-
+          {% elif states(entity) | float > 0 and states(entity) | float < 5 %}
           #2CF2BD
-
-          {% elif states('sensor.kaikala_temperature') | float > 5 and
-          states('sensor.kaikala_temperature') | float < 15 %}
-
+          {% elif states(entity) | float > 5 and states(entity) | float < 15 %}
           #C5F3DB
-
-          {% elif states('sensor.kaikala_temperature') | float > 15 and
-          states('sensor.kaikala_temperature') | float < 20 %}
-
+          {% elif states(entity) | float > 15 and states(entity) | float < 20 %}
           #2BF389
-
-          {% elif states('sensor.kaikala_temperature') | float > 20 and
-          states('sensor.kaikala_temperature') | float < 23 %}
-
+          {% elif states(entity) | float > 20 and states(entity) | float < 23 %}
           green
-
-          {% elif states('sensor.kaikala_temperature') | float > 23 and
-          states('sensor.kaikala_temperature') | float < 27 %}
-
+          {% elif states(entity) | float > 23 and states(entity) | float < 27 %}
           orange
-
-          {% elif states('sensor.kaikala_temperature') | float > 27 %}
-
+          {% elif states(entity) | float > 27 %}
           red
-
           {% endif %}
         badge_icon: ''
         tap_action:
