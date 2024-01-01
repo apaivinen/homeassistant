@@ -1,0 +1,13 @@
+alias: Global - Set day light level
+description: ""
+trigger:
+  - platform: time_pattern
+    minutes: /30
+condition:
+  - condition: time
+    after: "08:55:00"
+    before: "15:05:00"
+action:
+  - service: script.day_light_level
+    data: {}
+mode: single

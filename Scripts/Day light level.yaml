@@ -1,0 +1,22 @@
+alias: Day light level
+sequence:
+  - service: input_number.increment
+    target:
+      entity_id: input_number.helper_night_light_level
+    data: {}
+  - service: input_number.decrement
+    target:
+      entity_id: input_number.helper_night_light_temperature
+    data: {}
+  - service: lifx.set_state
+    data:
+      brightness: "{{ states(\"input_number.helper_night_light_level\") }}"
+      color_temp: "{{ states(\"input_number.helper_night_light_temperature\") }}"
+      transition: 900
+    target:
+      device_id:
+        - 93bb0a89ef32070836b2398f6c75f709
+        - 5852cf80c2f53917cc8ad2cefab2b9ba
+        - 9c300d5e7b7fc8e3304fa9a85819e2b9
+mode: single
+icon: mdi:brightness-5

@@ -1,0 +1,17 @@
+alias: Global - Set night light level
+description: >-
+  This automation is connected to Script and Helper. This runs every 30minutes
+  from 19:30 to 24:00 and calls a script which sets light level to LifX light
+  bulps based on helper value. The script handles light level lowering with
+  transition effect
+trigger:
+  - platform: time_pattern
+    minutes: /30
+condition:
+  - condition: time
+    after: "19:25:00"
+    before: "00:25:00"
+action:
+  - service: script.night_light_level
+    data: {}
+mode: single

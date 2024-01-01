@@ -1,4 +1,4 @@
-title: Room temps
+title: Temptatures
 type: horizontal-stack
 cards:
   - type: vertical-stack
@@ -111,7 +111,42 @@ cards:
           {{ states('sensor.ble_temperature_ruuvitag_sauna') | float | round(2)
           }} °C
         secondary: Sauna
-        icon: mdi:thermometer
+        icon: >-
+          {% if states('sensor.ble_temperature_ruuvitag_sauna') | float < 35 %} 
+
+          mdi:thermometer
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 35
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 50 %}
+
+          mdi:heat-wave
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 50
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 55 %}
+
+          mdi:thermometer-low
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 59 %}
+
+          mdi:thermometer-plus
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 59
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 65 %}
+
+          mdi:thermometer
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 69 %}
+
+          mdi:thermometer-high
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 69
+          %}
+
+          mdi:coffin
+
+          {% endif %}
         entity: sensor.ruuvitag_fc91_sauna_temperature
         layout: vertical
         icon_color: >-
@@ -122,14 +157,24 @@ cards:
           {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 50
           and states('sensor.ble_temperature_ruuvitag_sauna') | float < 55 %}
 
+          cyan
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 59 %}
+
+          lime
+
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 59
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 65 %}
+
           green
 
           {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 55
-          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 62 %}
+          and states('sensor.ble_temperature_ruuvitag_sauna') | float < 69 %}
 
           orange
 
-          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 62
+          {% elif states('sensor.ble_temperature_ruuvitag_sauna') | float > 69
           %}
 
           red
@@ -178,13 +223,58 @@ cards:
       - type: custom:mushroom-template-card
         primary: '{{ states(''sensor.kaikala_temperature'') }} °C'
         secondary: Outside
-        icon: mdi:thermometer
+        icon: >-
+
+          {% if states('sensor.kaikala_temperature') | float < -20 %}
+
+          mdi:skull
+
+          {% elif states('sensor.kaikala_temperature') | float > -20 and
+          states('sensor.kaikala_temperature') | float < 0 %}
+
+          mdi:snowflake-thermometer
+
+          {% elif states('sensor.kaikala_temperature') | float > 0 and
+          states('sensor.kaikala_temperature') | float < 15 %}
+
+          mdi:thermometer
+
+          {% elif states('sensor.kaikala_temperature') | float > 15  and
+          states('sensor.kaikala_temperature') | float < 27 %}
+
+          mdi:sun-thermometer
+
+          {% elif states('sensor.kaikala_temperature') | float > 27 %}
+
+          mdi:skull-crossbones
+
+          {% endif %}
         entity: sensor.kaikala_temperature
         layout: vertical
         icon_color: >-
-          {% if states('sensor.kaikala_temperature') | float < 20 %} 
+          {% if states('sensor.kaikala_temperature') | float < -15 %} 
 
-          blue
+          white
+
+          {% elif states('sensor.kaikala_temperature') | float > -15 and
+          states('sensor.kaikala_temperature') | float < 0 %}
+
+          #33F2FF
+
+          {% elif states('sensor.kaikala_temperature') | float > 0 and
+          states('sensor.kaikala_temperature') | float < 5 %}
+
+          #2CF2BD
+
+          {% elif states('sensor.kaikala_temperature') | float > 5 and
+          states('sensor.kaikala_temperature') | float < 15 %}
+
+          #C5F3DB
+
+          {% elif states('sensor.kaikala_temperature') | float > 15 and
+          states('sensor.kaikala_temperature') | float < 20 %}
+
+          #2BF389
 
           {% elif states('sensor.kaikala_temperature') | float > 20 and
           states('sensor.kaikala_temperature') | float < 23 %}
