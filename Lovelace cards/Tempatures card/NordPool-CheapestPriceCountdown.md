@@ -3,10 +3,10 @@
 Jinja template for informing when is the next time for cheapest electricity
 
 1. Requires nordpool integration
-2. Modify following variables to match your nordpool entity
-  - prices_today
-  - prices_today_min_value
-  - prices_tomorrow
+2. Modify following variables to match your nordpool entity  
+    - prices_today
+    - prices_today_min_value
+    - prices_tomorrow
 
 ```javascript
 {## Configurations ##}
