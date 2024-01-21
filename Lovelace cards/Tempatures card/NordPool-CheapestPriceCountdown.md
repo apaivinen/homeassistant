@@ -53,3 +53,7 @@ Jinja template for informing when is the next time for cheapest electricity
   {% endif %}
 {% endif %}
 ```
+
+## ToDo
+1. modify template to recognize the hour duration and show the tomorrows cheapest price after the hour has ended.
+2. Maybe highlight if the cheapest hour is currently on-going
